@@ -1,0 +1,6 @@
+[submodule "browser-use"]
+	path = browser-use
+	url = https://github.com/browser-use/browser-use.git
+[submodule "nodriver"]
+	path = nodriver
+	url = https://github.com/ultrafunkamsterdam/nodriver.git

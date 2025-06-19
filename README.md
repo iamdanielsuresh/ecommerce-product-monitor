@@ -29,10 +29,15 @@ This project provides automated monitoring of product availability, pricing, and
 - Git
 
 ### Setup
-1. Clone the repository:
+1. Clone the repository with submodules:
 ```bash
-git clone https://github.com/iamdanielsuresh/ecommerce-product-monitor.git
+git clone --recursive https://github.com/iamdanielsuresh/ecommerce-product-monitor.git
 cd ecommerce-product-monitor
+```
+
+   **Note**: If you already cloned without `--recursive`, initialize submodules:
+```bash
+git submodule update --init --recursive
 ```
 
 2. Create and activate virtual environment:
@@ -43,8 +48,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. Install dependencies:
 ```bash
+# Install the automation libraries in development mode
 pip install -e ./nodriver
 pip install -e ./browser-use
+
+# Install playwright browsers for browser-use
 playwright install
 ```
 
@@ -53,6 +61,15 @@ playwright install
 cp .env.example .env
 # Edit .env with your API keys and configuration
 ```
+
+### Dependencies
+
+This project uses two main automation libraries as git submodules:
+
+- **[nodriver](https://github.com/ultrafunkamsterdam/nodriver)** - Undetected browser automation
+- **[browser-use](https://github.com/browser-use/browser-use)** - AI-powered browser automation
+
+These are included as submodules to ensure version compatibility and allow for local modifications if needed.
 
 ## Usage
 
@@ -96,15 +113,30 @@ LOG_LEVEL=INFO
 
 ```
 ecommerce-product-monitor/
-├── browser-use/          # AI-powered automation library
-├── nodriver/             # Stealth browser automation library
+├── browser-use/          # AI-powered automation library (submodule)
+├── nodriver/             # Stealth browser automation library (submodule)
 ├── src/                  # Main application code
 ├── config/               # Configuration files
 ├── reports/              # Generated reports
 ├── logs/                 # Application logs
-├── .env                  # Environment variables
+├── venv/                 # Virtual environment (not tracked)
+├── .env                  # Environment variables (not tracked)
+├── .env.example          # Environment template
+├── .gitmodules           # Git submodules configuration
 ├── .gitignore           # Git ignore rules
 └── README.md            # This file
+```
+
+### Submodules
+
+This project includes two essential libraries as git submodules:
+
+- **browser-use** ([repository](https://github.com/browser-use/browser-use)) - AI-powered browser automation
+- **nodriver** ([repository](https://github.com/ultrafunkamsterdam/nodriver)) - Undetected browser automation
+
+To update submodules to latest versions:
+```bash
+git submodule update --remote
 ```
 
 ## Contributing
