@@ -147,6 +147,3 @@ git submodule update --remote
 4. Push to the branch
 5. Create a Pull Request
 
-## License
-
-This project is private and proprietary.
