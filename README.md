@@ -1,79 +1,120 @@
-# DataScrapper Development Environment
+# Ecommerce Product Monitor
 
-## ✅ Environment Setup Complete!
+An automated web scraping solution for daily product monitoring across multiple ecommerce platforms.
 
-### Installed Packages
-- **nodriver** - Undetected browser automation (successor to undetected-chromedriver)
-- **browser-use** - AI-powered browser automation with LLM integration  
-- **playwright** - Cross-browser automation (dependency for browser-use)
-- All required dependencies installed in development mode
+## Overview
 
-### Virtual Environment Details
-- **Location**: `venv/`
-- **Python Version**: 3.11.9
-- **Activation**: `source venv/bin/activate`
+This project provides automated monitoring of product availability, pricing, and stock status across various ecommerce websites. It combines stealth web automation with AI-powered interaction capabilities to handle complex website structures and anti-bot measures.
 
-## 🚀 Quick Start
+## Features
 
-### 1. Activate Environment
+- Automated login to ecommerce accounts
+- Product search and data extraction
+- Price and availability monitoring
+- Anti-detection web scraping
+- Automated report generation
+- Integration with n8n workflows
+
+## Technology Stack
+
+- **nodriver** - Stealth browser automation (successor to undetected-chromedriver)
+- **browser-use** - AI-powered browser automation with LLM integration
+- **playwright** - Cross-browser automation framework
+- **Python 3.11+** - Core runtime environment
+
+## Installation
+
+### Prerequisites
+- Python 3.11 or higher
+- Git
+
+### Setup
+1. Clone the repository:
 ```bash
-source venv/bin/activate
+git clone https://github.com/iamdanielsuresh/ecommerce-product-monitor.git
+cd ecommerce-product-monitor
 ```
 
-### 2. Using nodriver (Anti-detection)
+2. Create and activate virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -e ./nodriver
+pip install -e ./browser-use
+playwright install
+```
+
+4. Configure environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your API keys and configuration
+```
+
+## Usage
+
+### Basic Scraping with nodriver
 ```python
-import sys, os
+import sys
+import os
 sys.path.insert(0, './nodriver')
 import nodriver as uc
 
-async def scrape_example():
+async def scrape_product():
     browser = await uc.start()
     tab = await browser.get('https://example.com')
-    # Your scraping logic here
+    # Scraping logic here
     browser.stop()
 ```
 
-### 3. Using browser-use (AI-powered)
-First, create `.env` file:
-```
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-Then:
+### AI-Powered Automation with browser-use
 ```python
 from langchain_openai import ChatOpenAI
 from browser_use import Agent
 
 llm = ChatOpenAI(model='gpt-4o-mini')
-agent = Agent(task='Your scraping task description', llm=llm)
+agent = Agent(
+    task='Search for product and extract price information', 
+    llm=llm
+)
 await agent.run()
 ```
 
-## 📁 Project Structure
+## Configuration
+
+Create a `.env` file with the following variables:
 ```
-DataScrapper/
-├── browser-use/       # Browser-use package (development mode)
-├── nodriver/          # Nodriver package (development mode)
-├── venv/              # Virtual environment (not tracked in git)
-├── .env              # Environment variables (create this, not tracked)
-├── .gitignore        # Git ignore file
-├── README.md         # This file
-└── scraper.py        # Your main scraping script
+OPENAI_API_KEY=your_openai_api_key
+DATABASE_URL=sqlite:///products.db
+LOG_LEVEL=INFO
 ```
 
-## 💡 Development Tips
+## Project Structure
 
-### nodriver Features:
-- ✅ Anti-bot detection bypass
-- ✅ No chromedriver dependency
-- ✅ Async/await support
-- ✅ Stealth mode by default
+```
+ecommerce-product-monitor/
+├── browser-use/          # AI-powered automation library
+├── nodriver/             # Stealth browser automation library
+├── src/                  # Main application code
+├── config/               # Configuration files
+├── reports/              # Generated reports
+├── logs/                 # Application logs
+├── .env                  # Environment variables
+├── .gitignore           # Git ignore rules
+└── README.md            # This file
+```
 
-### browser-use Features:
-- ✅ Natural language task descriptions
-- ✅ AI-powered element interaction
-- ✅ Vision capabilities
-- ✅ Automatic screenshot generation
+## Contributing
 
-## 🎯 Ready for Development!
-Your environment is fully configured and ready for web scraping projects using both traditional automation (nodriver) and AI-powered automation (browser-use).
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is private and proprietary.
